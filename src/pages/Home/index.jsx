@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 function Home(userDetails) {
 	const user = userDetails.user;
 	const logout = () => {
-		window.open(`http://localhost:4000/auth/logout`, "_self");
+		window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
 	};
 	return (
 		<div className={styles.container}>

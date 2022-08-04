@@ -17,8 +17,7 @@ function App() {
 
 	const getUser = async () => {
 		try {
-			// const url = `http://localhost:4000/auth/login/success`;
-			const url = `http://localhost:4000/auth/login/confirm`;
+			const url = `https://userbench-back.vercel.app/auth/login/confirm`;
 			const { data } = await axios.get(url, { withCredentials: true })
 
 			// setToken(data.token)

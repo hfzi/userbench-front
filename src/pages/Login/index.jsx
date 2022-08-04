@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 function Login() {
 	const googleAuth = () => {
 		window.open(
-			`http://localhost:4000/auth/google`,
+			`https://userbench-back.vercel.app/auth/google`,
 			"_self"
 		);
 	};
