@@ -102,14 +102,14 @@ function Product(userDetails) {
       <div className="row">
         <div className="col-12">
           Country:{" "}
-          <select
-            class="custom-select"
+          <select defaultValue={"choose"}
+            className="custom-select"
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option selected>Choose Category . . .</option>
+            <option value="choose" >Choose Category . . .</option>
 						<option value="all">All</option>
-            {categoryList.map((x) => (
-              <option value={x.category}>{x.category}</option>
+            {categoryList.map((x, i) => (
+              <option key={i} value={x.category}>{x.category}</option>
             ))}
           </select>
         </div>
