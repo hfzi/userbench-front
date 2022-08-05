@@ -18,7 +18,14 @@ function App() {
 	const getUser = async () => {
 		try {
 			const url = `https://userbench-back.vercel.app/auth/login/confirm`;
-			const { data } = await axios.get(url, { withCredentials: true }, {'Access-Control-Allow-Origin': '*'})
+			let config = {
+                headers: {
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Headers': '*',
+                  'Access-Control-Allow-Credentials': 'true'
+                }
+            };
+			const { data } = await axios.get(url, { withCredentials: true }, config)
 
 			// setToken(data.token)
 			localStorage.setItem("user",  (data.token))
