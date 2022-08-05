@@ -20,8 +20,9 @@ function App() {
 			let config = {
 				withCredentials: true,
 				headers: {
+					'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
 					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Headers': '*',
+					'Access-Control-Allow-Headers': '*'
 				}
 		};
 			const { data } = await axios.get(url, config)
