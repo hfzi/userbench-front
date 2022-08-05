@@ -9,7 +9,6 @@ import Product from "./pages/Product";
 import AddProduct from "./pages/Product/Add";
 import Profile from "./pages/Profile";
 import Navbar from "./pages/Navbar";
-import "date-fns";
 
 function App() {
 	const [user, setUser] = useState(null);

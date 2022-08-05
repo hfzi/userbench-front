@@ -34,7 +34,7 @@ export default function Profile(userDetails) {
   const removeProduct = async (prod, cate, image) => {
     await axios.get(
       `http://localhost:4000/delete?product=${prod}&category=${cate}&img=${image}`,
-      { withCredentials: false }
+      { withCredentials: true}
     );
     // var datasend = axios.post(`http://localhost:4000/add`,{product})
     console.log("eklendi2", prod, cate);
