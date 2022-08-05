@@ -48,26 +48,29 @@ function App() {
 				<Route
 					exact
 					path="/"
-					element={user ? <Product user={user} /> : <Login />}
+					// element={user ? <Product user={user} /> : <Login />}
+					element={<Product user={user} />}
 				/>
 				<Route
 					exact
 					path="/login"
-					element={user ? <Navigate to="/" /> : <Login />}
+					element={<Login />}
 				/>
 				<Route
 					path="/signup"
-					element={user ? <Navigate to="/" /> : <Signup />}
+					element={<Signup />}
 				/>
 				<Route
 					exact
 					path="/profile/:username"
-					element={user ? <Profile user={user} /> : <Login />}
+					// element={user ? <Profile user={user} /> : <Login />}
+					element={<Profile user={user} />}
 				/>
 				<Route
 					exact
 					path="/product/add"
-					element={user && user ? <AddProduct user={user} /> : <Login />}
+					// element={user && user ? <AddProduct user={user} /> : <Login />}
+					element={<AddProduct user={user} />}
 				/>
 			</Routes>
 		</div>
