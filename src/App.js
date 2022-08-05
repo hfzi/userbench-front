@@ -18,7 +18,7 @@ function App() {
 		try {
 			const url = `https://userbench-back.vercel.app/auth/login/confirm`;
 			let config = {
-				withCredentials: false,
+				withCredentials: true,
 				headers: {
 					'Access-Control-Allow-Origin': '*',
 					'Access-Control-Allow-Headers': '*',
