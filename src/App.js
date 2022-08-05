@@ -22,7 +22,6 @@ function App() {
 				headers: {
 					'Access-Control-Allow-Origin': '*',
 					'Access-Control-Allow-Headers': '*',
-					'Access-Control-Allow-Credentials': 'true'
 				}
 		};
 			const { data } = await axios.get(url, config)
