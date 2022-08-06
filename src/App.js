@@ -16,7 +16,8 @@ function App() {
 
 	const getUser = async () => {
 		try {
-			const url = `https://userbench-back.vercel.app/auth/login/confirm`;
+			// const url = `https://userbench-back.vercel.app/auth/login/confirm`;
+			const url = `https://userbench-backends.vercel.app`;
 			let config = {
 				withCredentials: true,
 				// headers: {
