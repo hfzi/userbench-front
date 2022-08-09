@@ -46,7 +46,7 @@ export default function Profile(userDetails) {
       <div className="row">
         <div className="col-12">
           <div>
-            <img src={user.picture && user.picture} />
+            {/* <img src={user.picture && user.picture} /> */}
             {otheruser.name}
           </div>
         </div>

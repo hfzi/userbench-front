@@ -14,11 +14,11 @@ function Home(userDetails) {
 				</div>
 				<div className={styles.right}>
 					<h2 className={styles.from_heading}>Profile</h2>
-					<img
-						src={user.picture}
+					{/* <img
+						src={user.picture ? user.picture : ""}
 						alt="profile"
 						className={styles.profile_img}
-					/>
+					/> */}
 					<input
 						type="text"
 						defaultValue={user.name}

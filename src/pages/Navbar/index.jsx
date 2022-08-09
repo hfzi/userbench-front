@@ -8,7 +8,7 @@ const Navbar = (userDetails) => {
 
   const onProfile = () => {
     return (<>
-      <img src={userDetails.user.user.picture && userDetails.user.user.picture} style={{borderRadius:"10px", width:"38px", height:"38px", backgroundColor:"white", margin:"10px" }} />
+      {/* <img src={userDetails.user.user.picture && userDetails.user.user.picture} style={{borderRadius:"10px", width:"38px", height:"38px", backgroundColor:"white", margin:"10px" }} /> */}
         <Link className="nav-link" to={`/profile/${userDetails.user.user.name}`}><h6>{userDetails.user.user.name}</h6></Link>
       </>
     )
