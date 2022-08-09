@@ -12,21 +12,29 @@ import Navbar from "./pages/Navbar";
 
 function App() {
 	const [user, setUser] = useState(null);
+	// const [token, setToken] = useState(localStorage.getItem("user") ? localStorage.getItem("user") : "");
 
 	const getUser = async () => {
 		try {
-			const { data } = await fetch('https://userbench-back.vercel.app/auth/login/confirm', {
-				method: 'GET',
-				mode: 'cors',
-				xhrFields: { withCredentials: true},
-				credentials: 'include'
-			}).then((res) => res.json()).then((d) => setUser(d))
+			const url = `https://userbench-back.vercel.app/auth/login/confirm`;
+			// const url = `https://userbench-backends.vercel.app`;
+			let config = {
+				withCredentials: true,
+				// headers: {
+				// 	'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+				// 	'Access-Control-Allow-Origin': '*',
+				// 	'Access-Control-Allow-Headers': '*'
+				// }
+		};
+			const { data } = await axios.get(url, config)
 
+			// setToken(data.token)
 			localStorage.setItem("user",  (data.token))
-			console.log("veri", user);
+			setUser(data);
+			console.log("veris", user);
 
 		} catch (err) {
-			console.log("hata", err);
+			console.log(err);
 		}
 	};
 
