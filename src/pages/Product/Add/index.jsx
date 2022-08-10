@@ -76,24 +76,26 @@ function Product(userDetails) {
   const user = userDetails.user;
   console.log("user", user);
   /* 	const logout = () => {
-		window.open(`http://localhost:4000/auth/logout`, "_self");
+		window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
 	}; */
 
   const addproduct = () => {
     var datasend = axios.get(
-      `http://localhost:4000/add?product=${product}&category=${category}`,
+      `https://userbench-back.vercel.app/add?product=${product}&category=${category}`,
       { withCredentials: true}
     );
-    // var datasend = axios.post(`http://localhost:4000/add`,{product})
+    // var datasend = axios.post(`https://userbench-back.vercel.app/add`,{product})
     console.log("eklendi");
   };
 
   const addproduct2 = async (prod, cate, image) => {
     await axios.get(
-      `http://localhost:4000/add?product=${prod}&category=${cate}&img=${image}`,
+      `https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}`,
       { withCredentials: true}
     );
-    // var datasend = axios.post(`http://localhost:4000/add`,{product})
+
+    
+    // var datasend = axios.post(`https://userbench-back.vercel.app/add`,{product})
     console.log("eklendi2", prod, cate);
   };
 

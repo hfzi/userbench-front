@@ -17,7 +17,7 @@ export default function Profile(userDetails) {
       };
       console.log(userDetails.user.user.email);
       const { data } = await axios.get(
-        `http://localhost:4000/search?user=${username}`,
+        `https://userbench-back.vercel.app/search?user=${username}`,
         config
       );
       setOtherUser(data[0]);
@@ -28,15 +28,15 @@ export default function Profile(userDetails) {
 
   const user = userDetails.user.user;
   const logout = () => {
-    window.open(`http://localhost:4000/auth/logout`, "_self");
+    window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
   };
 
   const removeProduct = async (prod, cate, image) => {
     await axios.get(
-      `http://localhost:4000/delete?product=${prod}&category=${cate}&img=${image}`,
+      `https://userbench-back.vercel.app/delete?product=${prod}&category=${cate}&img=${image}`,
       { withCredentials: true}
     );
-    // var datasend = axios.post(`http://localhost:4000/add`,{product})
+    // var datasend = axios.post(`https://userbench-back.vercel.app/add`,{product})
     console.log("eklendi2", prod, cate);
     window.location.reload();
   };
