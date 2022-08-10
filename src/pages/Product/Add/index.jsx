@@ -89,17 +89,17 @@ function Product(userDetails) {
   };
 
   const addproduct2 = async (prod, cate, image) => {
-    // await axios.get(
-    //   `https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}`,
-    //   { withCredentials: true }
-    // );
+    await axios.get(
+      `https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}`,
+      { withCredentials: true }
+    );
 
-    await fetch(`https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}`, {
-      method: 'GET',
-      mode: 'cors',
-      xhrFields: { withCredentials: true },
-      credentials: 'include'
-    })
+    // await fetch(`https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}`, {
+    //   method: 'GET',
+    //   mode: 'cors',
+    //   xhrFields: { withCredentials: true },
+    //   credentials: 'include'
+    // })
 
     // var datasend = axios.post(`https://userbench-back.vercel.app/add`,{product})
     console.log("eklendi2", prod, cate);

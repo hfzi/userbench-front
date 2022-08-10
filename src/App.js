@@ -20,11 +20,9 @@ function App() {
 				mode: 'cors',
 				xhrFields: { withCredentials: true},
 				credentials: 'include'
-			}).then((res) => res.json()).then((d) => setUser(d))
+			}).then((res) => res.json()).then((data) => {setUser(data); localStorage.setItem("user", (data.token))})
 
-			localStorage.setItem("user",  (data.token))
 			console.log("veri", user);
-
 		} catch (err) {
 			console.log("hata", err);
 		}
