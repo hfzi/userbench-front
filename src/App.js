@@ -16,7 +16,7 @@ function App() {
 	const getUser = async () => {
 		try {
 			const { data } = await fetch('https://userbench-back.vercel.app/auth/login/confirm', {
-				method: 'GET',
+				method: 'POST',
 				mode: 'cors',
 				xhrFields: { withCredentials: true},
 				credentials: 'include'
