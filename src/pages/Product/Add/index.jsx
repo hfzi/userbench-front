@@ -74,39 +74,27 @@ function Product(userDetails) {
   ];
 
   const user = userDetails.user;
-  console.log("user", user);
   /* 	const logout = () => {
-    window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
-  }; */
+		window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
+	}; */
 
-  const addproduct = () => {
-    var datasend = axios.get(
-      `https://userbench-back.vercel.app/add?product=${product}&category=${category}`,
-      { withCredentials: true }
+  const addproduct = async (prod, cate, image) => {
+    
+    await axios.get(
+      `https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem("token")}`,
+      { withCredentials: true },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user")}`,
+        },
+      }
     );
     // var datasend = axios.post(`https://userbench-back.vercel.app/add`,{product})
-    console.log("eklendi");
-  };
-
-  const addproduct2 = async (prod, cate, image) => {
-    // await axios.get(
-    //   `https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}`,
-    //   { withCredentials: true }
-    // );
-
-    await fetch(`https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}`, {
-      method: 'GET',
-      mode: 'cors',
-      xhrFields: { withCredentials: true },
-      credentials: 'include'
-    })
-
-    // var datasend = axios.post(`https://userbench-back.vercel.app/add`,{product})
-    console.log("eklendi2", prod, cate);
+    console.log("eklendi", prod, cate);
   };
 
   return (
-    <div className="container" style={{ backgroundColor: "black" }}>
+    <div className="container" style={{backgroundColor:"black"}}>
       <div className="row">
         <div className="col-12">
           Country:{" "}
@@ -115,37 +103,37 @@ function Product(userDetails) {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="choose" >Choose Category . . .</option>
-            <option value="all">All</option>
+						<option value="all">All</option>
             {categoryList.map((x, i) => (
               <option key={i} value={x.category}>{x.category}</option>
             ))}
           </select>
         </div>
 
-        {productList && productList
-          .filter((val) => {
-            if (category == "all") {
-              return val;
-            } else if (
-              val.category.toLowerCase().includes(category.toLowerCase())
-            ) {
-              return val;
-            }
-          })
-          .map((x, i) => (
-            <div key={i} className="col-3" style={{ padding: "10px" }}>
-              <div style={{ maxWidth: "222px", height: "222px", borderRadius: "8px", display: "block", marginLeft: "auto", marginRight: "auto", backgroundColor: "white" }}>
-                <img style={{ maxWidth: "222px", height: "222px", borderRadius: "8px", objectFit: "contain", display: "block", marginLeft: "auto", marginRight: "auto", zIndex: "2", position: "absolute" }} src={x.img} />
-                <img style={{ maxWidth: "222px", height: "222px", borderRadius: "8px", objectFit: "contain", display: "block", marginLeft: "auto", marginRight: "auto", zIndex: "1", position: "absolute" }} src="/images/white.png" />
+          {productList && productList
+            .filter((val) => {
+              if (category == "all") {
+                return val;
+              } else if (
+                val.category.toLowerCase().includes(category.toLowerCase())
+              ) {
+                return val;
+              }
+            })
+            .map((x, i) => (
+              <div key={i} className="col-3" style={{padding:"10px"}}>
+                <div style={{maxWidth:"222px", height:"222px", borderRadius:"8px", display:"block", marginLeft:"auto", marginRight:"auto", backgroundColor:"white"}}>
+                	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"2", position:"absolute"}} src={x.img} />
+                	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"1", position:"absolute"}} src="/images/white.png" />
+                </div>
+                  <div className="col-12" /* style={{position: "relative"}} */><h6>{x.name}</h6></div>
+                  <div className="col-12" /* style={{position: "relative"}} */><button onClick={() => addproduct(x.name, x.category, x.img)} style={{marginLeft:"10px"}} className="col-6">I have</button></div>
               </div>
-              <div className="col-12" /* style={{position: "relative"}} */><h6>{x.name}</h6></div>
-              <div className="col-12" /* style={{position: "relative"}} */><button onClick={() => addproduct2(x.name, x.category, x.img)} style={{ marginLeft: "10px" }} className="col-6">I have</button></div>
-            </div>
-          ))}
+            ))}
 
       </div>
-      <input type="textbox" onChange={(e) => setProduct(e.target.value)} />
-      <button onClick={addproduct}>Add</button>
+			<input type="textbox" onChange={(e) => setProduct(e.target.value)} />
+          <button onClick={addproduct}>Add</button>
     </div>
   );
 }

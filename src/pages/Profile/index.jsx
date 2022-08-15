@@ -10,15 +10,12 @@ export default function Profile(userDetails) {
 
   useEffect(() => {
     const getUser = async () => {
-      let config = {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("user")}`,
-        },
-      };
-      console.log(userDetails.user.user.email);
+      // console.log(userDetails.user.user.email);
       const { data } = await axios.get(
-        `https://userbench-back.vercel.app/search?user=${username}`,
-        config
+        `https://userbench-back.vercel.app/search?user=${username}&token=${localStorage.getItem(
+          "token"
+        )}`,
+        { withCredentials: true }
       );
       setOtherUser(data[0]);
       console.log("asd", otheruser);
@@ -26,31 +23,33 @@ export default function Profile(userDetails) {
     getUser();
   }, []);
 
-  const user = userDetails.user.user;
+  const user = userDetails;
   const logout = () => {
     window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
   };
 
   const removeProduct = async (prod, cate, image) => {
     await axios.get(
-      `https://userbench-back.vercel.app/delete?product=${prod}&category=${cate}&img=${image}`,
-      { withCredentials: true}
+      `https://userbench-back.vercel.app/delete?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem(
+        "token"
+      )}`,
+      { withCredentials: true }
     );
-    // var datasend = axios.post(`https://userbench-back.vercel.app/add`,{product})
+
     console.log("eklendi2", prod, cate);
     window.location.reload();
   };
 
   return (
-    <div className="container" style={{ backgroundColor: "black" }}>
+    <div className="container" style={{ backgroundColor: "#DADADA" }}>
       <div className="row">
         <div className="col-12">
           <div>
-            {/* <img src={user.picture && user.picture} /> */}
+            <img src={otheruser.photo && otheruser.photo} />
             {otheruser.name}
           </div>
         </div>
-        {/* <div>{user.email}</div> */}
+
         {otheruser.product &&
           otheruser.product.map((x, i) => (
             <div key={i} className="col-3 p-4" style={{ padding: "10px" }}>
@@ -74,8 +73,8 @@ export default function Profile(userDetails) {
                     display: "block",
                     marginLeft: "auto",
                     marginRight: "auto",
-                    zIndex:"2",
-                    position:"absolute"
+                    zIndex: "2",
+                    position: "absolute",
                   }}
                   src={x.image}
                 />

@@ -4,30 +4,35 @@ import { Link } from "react-router-dom";
 const Navbar = (userDetails) => {
   // const user = userDetails.user
   //const user = userDetails.user
-  // console.log("navbar", user.user.picture)
+  // console.log("navbar", userDetails.user.data.photo)
 
   const onProfile = () => {
-    return (<>
-      {/* <img src={userDetails.user.user.picture && userDetails.user.user.picture} style={{borderRadius:"10px", width:"38px", height:"38px", backgroundColor:"white", margin:"10px" }} /> */}
-        {/* <Link className="nav-link" to={`/profile/${userDetails.user.user.name}`}><h6>{userDetails.user.user.name}</h6></Link> */}
+
+    console.log("Navbar", userDetails.user.data.photo)
+    return (
+      <>
+        <img src={userDetails.user.data.photo && userDetails.user.data.photo} style={{borderRadius:"10px", width:"38px", height:"38px", backgroundColor:"white", margin:"10px" }} />
+        <Link className="nav-link" to={`/profile/${userDetails.user.data.name}`}><h6>{userDetails.user.data.name}</h6></Link>
       </>
-    )
-  }
-  
+    );
+  };
+
   const offProfile = () => {
-    return (<>
-          <Link to="/signup"><button 
-            className="btn btn btn-primary my-2 my-sm-0"
-            type="submit"
-          >Login</button>
-          </Link>
+    return (
+      <>
+        <Link to="/signup">
+          <button className="btn btn btn-primary my-2 my-sm-0" type="submit">
+            Login
+          </button>
+        </Link>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-inverse navbar-fixed-top">
-      <Link className="navbar-brand" to="/">userben.ch
+      <Link className="navbar-brand" to="/">
+        userben.ch
       </Link>
       <button
         className="navbar-toggler"
@@ -44,14 +49,16 @@ const Navbar = (userDetails) => {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <Link className="nav-link" to="/">Home
+            <Link className="nav-link" to="/">
+              Home
             </Link>
           </li>
           <li className="nav-item">
-          <Link className="nav-link" to="/product/add">Product
+            <Link className="nav-link" to="/product/add">
+              Product
             </Link>
           </li>
-{/*           <li className="nav-item dropdown">
+          {/*           <li className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
               href="#"
@@ -76,14 +83,14 @@ const Navbar = (userDetails) => {
               </a>
             </div>
           </li> */}
-{/*           <li className="nav-item">
+          {/*           <li className="nav-item">
             <a className="nav-link disabled" href="#">
               Disabled
             </a>
           </li> */}
         </ul>
         <form className="form-inline my-2 my-lg-0">
-{/*           <input
+          {/*           <input
             className="form-control mr-sm-2"
             type="search"
             placeholder="Search"
