@@ -6,17 +6,17 @@ import Product from "./pages/Product";
 import AddProduct from "./pages/Product/Add";
 import Profile from "./pages/Profile";
 import Navbar from "./pages/Navbar";
-//import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
+  const token = localStorage.getItem("token") ? localStorage.getItem("token") : null
   
   useEffect(() => {
       // Get User Data //
   const getUser = async () => {
     try {
       await fetch(
-        `http://localhost:4000/auth/login/confirm?token=${localStorage.getItem("token")}`,
+        `https://userbench-back.vercel.app/auth/login/confirm?token=${localStorage.getItem("token")}`,
         {
           method: "GET",
           mode: "cors",
@@ -44,26 +44,26 @@ function App() {
         <Route
           exact
           path="/"
-          element={user ? <Product user={user} /> : <Login />}
+          element={token ? <Product user={user} /> : <Login />}
         />
         <Route
           exact
           path="/login"
-          element={user ? <Navigate to="/" /> : <Login />}
+          element={token ? <Navigate to="/" /> : <Login />}
         />
         <Route
           path="/signup"
-          element={user ? <Navigate to="/" /> : <Login />}
+          element={token ? <Navigate to="/" /> : <Login />}
         />
         <Route
           exact
           path="/profile/:username"
-          element={user ? <Profile user={user} /> : <Login />}
+          element={token ? <Profile user={user} /> : <Login />}
         />
         <Route
           exact
           path="/product/add"
-          element={user && user ? <AddProduct user={user} /> : <Login />}
+          element={token && user ? <AddProduct user={user} /> : <Login />}
         />
       </Routes>
     </div>
