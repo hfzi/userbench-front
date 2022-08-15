@@ -12,7 +12,7 @@ function Login() {
     console.log("acık", userObject);
 
     await axios.get(
-        `http://localhost:4000/auth/register?userdata=${response.credential}`,
+        `https://userbench-back.vercel.app/auth/register?userdata=${response.credential}`,
         { withCredentials: true },
       )
       .then((data) => {
@@ -23,7 +23,7 @@ function Login() {
 
   const getUser = async () => {
     try {
-      await fetch("http://localhost:4000/auth/login/confirm", {
+      await fetch("https://userbench-back.vercel.app/auth/login/confirm", {
         method: "POST",
         mode: "cors",
         xhrFields: { withCredentials: true },
@@ -43,7 +43,7 @@ function Login() {
   }, []);
 
   const googleAuth = () => {
-    window.open(`http://localhost:4000/auth/google`, "_self");
+    window.open(`https://userbench-back.vercel.app/auth/google`, "_self");
   };
   return (
     <div className={styles.container}>
