@@ -1,8 +1,6 @@
 import React from "react";
-import { Routes, Route, Navigate, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
-//import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
 import AddProduct from "./pages/Product/Add";
@@ -12,15 +10,13 @@ import Navbar from "./pages/Navbar";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(
-    localStorage.getItem("token") ? localStorage.getItem("token") : null
-  );
   
-  // Get User Data //
+  useEffect(() => {
+      // Get User Data //
   const getUser = async () => {
     try {
       await fetch(
-        `https://userbench-back.vercel.app/auth/login/confirm?token=${localStorage.getItem("token")}`,
+        `http://localhost:4000/auth/login/confirm?token=${localStorage.getItem("token")}`,
         {
           method: "GET",
           mode: "cors",
@@ -30,19 +26,17 @@ function App() {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log("aaa", data)
           setUser({data});
-          console.log("user", user)
         });
     } catch (err) {
       console.log("hata", err);
     }
   };
 
-  useEffect(() => {
     getUser();
   }, []);
 
+  // render //
   return (
     <div className="container">
       <Navbar user={user && user} />

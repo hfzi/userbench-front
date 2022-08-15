@@ -1,5 +1,5 @@
 {
-  "name": "userbench-front",
+  "name": "client",
   "version": "0.1.0",
   "proxy": "https://userbench-back.vercel.app",
   "homepage": "https://userben.ch",
@@ -11,7 +11,6 @@
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
-    "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

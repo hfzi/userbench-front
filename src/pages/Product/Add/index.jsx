@@ -75,13 +75,13 @@ function Product(userDetails) {
 
   const user = userDetails.user;
   /* 	const logout = () => {
-		window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
+		window.open(`http://localhost:4000/auth/logout`, "_self");
 	}; */
 
   const addproduct = async (prod, cate, image) => {
     
     await axios.get(
-      `https://userbench-back.vercel.app/add?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem("token")}`,
+      `http://localhost:4000/add?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem("token")}`,
       { withCredentials: true },
       {
         headers: {
@@ -89,7 +89,7 @@ function Product(userDetails) {
         },
       }
     );
-    // var datasend = axios.post(`https://userbench-back.vercel.app/add`,{product})
+    // var datasend = axios.post(`http://localhost:4000/add`,{product})
     console.log("eklendi", prod, cate);
   };
 

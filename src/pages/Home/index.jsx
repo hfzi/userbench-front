@@ -2,9 +2,6 @@ import styles from "./styles.module.css";
 
 function Home(userDetails) {
 	const user = userDetails.user;
-	const logout = () => {
-		window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
-	};
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.heading}>Home</h1>

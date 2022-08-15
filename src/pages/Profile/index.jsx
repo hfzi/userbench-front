@@ -12,7 +12,7 @@ export default function Profile(userDetails) {
     const getUser = async () => {
       // console.log(userDetails.user.user.email);
       const { data } = await axios.get(
-        `https://userbench-back.vercel.app/search?user=${username}&token=${localStorage.getItem(
+        `http://localhost:4000/search?user=${username}&token=${localStorage.getItem(
           "token"
         )}`,
         { withCredentials: true }
@@ -25,12 +25,12 @@ export default function Profile(userDetails) {
 
   const user = userDetails;
   const logout = () => {
-    window.open(`https://userbench-back.vercel.app/auth/logout`, "_self");
+    window.open(`http://localhost:4000/auth/logout`, "_self");
   };
 
   const removeProduct = async (prod, cate, image) => {
     await axios.get(
-      `https://userbench-back.vercel.app/delete?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem(
+      `http://localhost:4000/delete?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem(
         "token"
       )}`,
       { withCredentials: true }
