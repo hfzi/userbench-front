@@ -6,6 +6,7 @@ import Product from "./pages/Product";
 import AddProduct from "./pages/Product/Add";
 import Profile from "./pages/Profile";
 import Navbar from "./pages/Navbar";
+//import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -16,7 +17,7 @@ function App() {
   const getUser = async () => {
     try {
       await fetch(
-        `https://userbench-back.vercel.app/auth/login/confirm?token=${localStorage.getItem("token")}`,
+        `http://localhost:4000/auth/login/confirm?token=${localStorage.getItem("token")}`,
         {
           method: "GET",
           mode: "cors",
