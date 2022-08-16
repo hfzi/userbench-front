@@ -94,7 +94,7 @@ function Product(userDetails) {
   };
 
   return (
-    <div className="container" style={{backgroundColor:"black"}}>
+    <div className="container" style={{ backgroundColor: "#DADADA" }}>
       <div className="row">
         <div className="col-12">
           Country:{" "}
