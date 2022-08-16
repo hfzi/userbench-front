@@ -54,14 +54,6 @@ function Login() {
         </div>
         <div className={styles.right}>
           <h2 className={styles.from_heading}>Members Log in</h2>
-          <input type="text" className={styles.input} placeholder="Email" />
-          <input type="text" className={styles.input} placeholder="Password" />
-          <button className={styles.btn}>Log In</button>
-          <p className={styles.text}>or</p>
-          <button className={styles.google_btn} onClick={googleAuth}>
-            <img src="./images/google.png" alt="google icon" />
-            <span>Sing in with Google</span>
-          </button>
           <GoogleOAuthProvider clientId="199842155706-5jq4su19pe3fb7oa4jahog0ib891a07t.apps.googleusercontent.com">
             <GoogleLogin
               onSuccess={handleCallbackResponse}
@@ -70,9 +62,6 @@ function Login() {
               }}
             />
           </GoogleOAuthProvider>
-          <p className={styles.text}>
-            New Here ? <Link to="/signup">Sing Up</Link>
-          </p>
         </div>
       </div>
     </div>
