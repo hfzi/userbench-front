@@ -12,7 +12,7 @@ function Login() {
     console.log("acık", userObject);
 
     await axios.get(
-      "http://localhost:4000" + `/auth/register?userdata=${response.credential}`,
+      process.env.REACT_APP_HOST + `/auth/register?userdata=${response.credential}`,
         { withCredentials: true },
       )
       .then((data) => {
