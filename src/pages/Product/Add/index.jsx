@@ -74,42 +74,38 @@ function Product(userDetails) {
   ];
 
   const user = userDetails.user;
-  console.log("user", user);
   /* 	const logout = () => {
 		window.open(`http://localhost:4000/auth/logout`, "_self");
 	}; */
 
-  const addproduct = () => {
-    var datasend = axios.get(
-      `http://localhost:4000/add?product=${product}&category=${category}`,
-      { withCredentials: true }
-    );
-    // var datasend = axios.post(`http://localhost:4000/add`,{product})
-    console.log("eklendi");
-  };
-
-  const addproduct2 = async (prod, cate, image) => {
+  const addproduct = async (prod, cate, image) => {
+    console.log("env", process.env.REACT_APP_HOST)
     await axios.get(
-      `http://localhost:4000/add?product=${prod}&category=${cate}&img=${image}`,
-      { withCredentials: true }
+      `${process.env.REACT_APP_HOST}/add?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem("token")}`,
+      { withCredentials: true },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user")}`,
+        },
+      }
     );
     // var datasend = axios.post(`http://localhost:4000/add`,{product})
-    console.log("eklendi2", prod, cate);
+    console.log("eklendi", prod, cate);
   };
 
   return (
-    <div className="container" style={{backgroundColor:"black"}}>
+    <div className="container" style={{ backgroundColor: "#DADADA" }}>
       <div className="row">
         <div className="col-12">
           Country:{" "}
-          <select
-            class="custom-select"
+          <select defaultValue={"choose"}
+            className="custom-select"
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option selected>Choose Category . . .</option>
+            <option value="choose" >Choose Category . . .</option>
 						<option value="all">All</option>
-            {categoryList.map((x) => (
-              <option value={x.category}>{x.category}</option>
+            {categoryList.map((x, i) => (
+              <option key={i} value={x.category}>{x.category}</option>
             ))}
           </select>
         </div>
@@ -131,7 +127,7 @@ function Product(userDetails) {
                 	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"1", position:"absolute"}} src="/images/white.png" />
                 </div>
                   <div className="col-12" /* style={{position: "relative"}} */><h6>{x.name}</h6></div>
-                    <div className="col-12" /* style={{position: "relative"}} */><button onClick={() => addproduct2(x.name, x.category, x.img)} style={{marginLeft:"10px"}} className="col-6">I have</button></div>
+                  <div className="col-12" /* style={{position: "relative"}} */><button onClick={() => addproduct(x.name, x.category, x.img)} style={{marginLeft:"10px"}} className="col-6">I have</button></div>
               </div>
             ))}
 

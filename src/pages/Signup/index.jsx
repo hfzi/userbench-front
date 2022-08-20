@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 function Signup() {
 	const googleAuth = () => {
 		window.open(
-			`http://localhost:4000/auth/google/callback`,
+			process.env.REACT_APP_HOST + `/auth/google/callback`,
 			"_self"
 		);
 	};

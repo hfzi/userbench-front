@@ -1,10 +1,7 @@
-import React from "react"
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
-//import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import Product from "./pages/Product";
 import AddProduct from "./pages/Product/Add";
 import Profile from "./pages/Profile";
@@ -12,60 +9,66 @@ import Navbar from "./pages/Navbar";
 //import "./App.css";
 
 function App() {
-	const [user, setUser] = useState(null);
-	// const [token, setToken] = useState(localStorage.getItem("user") ? localStorage.getItem("user") : "");
+  const [user, setUser] = useState(null);
+  const token = localStorage.getItem("token") ? localStorage.getItem("token") : null
+  
+  useEffect(() => {
+      // Get User Data //
+  const getUser = async () => {
+    try {
+      await fetch(
+        process.env.REACT_APP_HOST + `/auth/login/confirm?token=${localStorage.getItem("token")}`,
+        {
+          method: "GET",
+          mode: "cors",
+          xhrFields: { withCredentials: true },
+          credentials: "include",
+        },
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setUser({data});
+        });
+    } catch (err) {
+      console.log("hata", err);
+    }
+  };
 
-	const getUser = async () => {
-		try {
-			// const url = `http://localhost:4000/auth/login/success`;
-			const url = `http://localhost:4000/auth/login/confirm`;
-			const { data } = await axios.get(url, { withCredentials: true })
+    getUser();
+  }, []);
 
-			// setToken(data.token)
-			localStorage.setItem("user",  (data.token))
-			setUser(data);
-			console.log("veris", user);
-
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
-	useEffect(() => {
-		getUser();
-	}, []);
-
-	return (
-		<div className="container">
-			<Navbar user={user && user} />
-			<Routes>
-				<Route
-					exact
-					path="/"
-					element={user ? <Product user={user} /> : <Login />}
-				/>
-				<Route
-					exact
-					path="/login"
-					element={user ? <Navigate to="/" /> : <Login />}
-				/>
-				<Route
-					path="/signup"
-					element={user ? <Navigate to="/" /> : <Signup />}
-				/>
-				<Route
-					exact
-					path="/profile/:username"
-					element={user ? <Profile user={user} /> : <Login />}
-				/>
-				<Route
-					exact
-					path="/product/add"
-					element={user && user ? <AddProduct user={user} /> : <Login />}
-				/>
-			</Routes>
-		</div>
-	);
+  // render //
+  return (
+    <div className="container">
+      <Navbar user={user && user} />
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={token ? <Product user={user} /> : <Login />}
+        />
+        <Route
+          exact
+          path="/login"
+          element={token ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/signup"
+          element={token ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          exact
+          path="/profile/:username"
+          element={token ? <Profile user={user} /> : <Login />}
+        />
+        <Route
+          exact
+          path="/product/add"
+          element={token && user ? <AddProduct user={user} /> : <Login />}
+        />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
