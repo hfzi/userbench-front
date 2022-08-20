@@ -73,11 +73,6 @@ function Product(userDetails) {
     },
   ];
 
-  const user = userDetails.user;
-  /* 	const logout = () => {
-		window.open(`http://localhost:4000/auth/logout`, "_self");
-	}; */
-
   const addproduct = async (prod, cate, image) => {
     console.log("env", process.env.REACT_APP_HOST)
     await axios.get(
@@ -89,7 +84,7 @@ function Product(userDetails) {
         },
       }
     );
-    // var datasend = axios.post(`http://localhost:4000/add`,{product})
+
     console.log("eklendi", prod, cate);
   };
 
