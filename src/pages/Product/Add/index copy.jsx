@@ -6,17 +6,33 @@ function Product() {
   const [data, setData] = useState([]);
   const [product, setProduct] = useState("");
   const [category, setCategory] = useState("");
-  const [users, setUser] = useState([]);
 
   useEffect(() => {
-    const user = async () => {
-      const { data } = await axios.get("http://localhost:4000/search");
-      setUser(data);
-    };
-    user();
-  }, []);
-  console.log("asd", users);
+    // Get User Data //
+const getUser = async () => {
+  try {
+    await fetch(
+      "http://localhost:4000/search",
+      {
+        method: "GET",
+        mode: "cors",
+        xhrFields: { withCredentials: true },
+        credentials: "include",
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setData({data});
+      });
+  } catch (err) {
+    console.log("hata", err);
+  }
+};
 
+  getUser();
+}, []);
+
+  
   // console.log("veri",data.data[0].name)
 
   const categoryList = [
@@ -87,13 +103,9 @@ function Product() {
   ];
 
   const addproduct = async (prod, cate, image) => {
-    console.log("env", process.env.REACT_APP_HOST);
+    console.log("env", process.env.REACT_APP_HOST)
     await axios.get(
-      `${
-        process.env.REACT_APP_HOST
-      }/add?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem(
-        "token"
-      )}`,
+      `${process.env.REACT_APP_HOST}/add?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem("token")}`,
       { withCredentials: true },
       {
         headers: {
@@ -110,35 +122,25 @@ function Product() {
       <div className="row">
         <div className="col-12">
           Country:{" "}
-          <select
-            defaultValue={"choose"}
+          <select defaultValue={"choose"}
             className="custom-select"
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="choose">Choose Category . . .</option>
-            <option value="all">All</option>
+            <option value="choose" >Choose Category . . .</option>
+						<option value="all">All</option>
             {categoryList.map((x, i) => (
-              <option key={i} value={x.category}>
-                {x.category}
-              </option>
+              <option key={i} value={x.category}>{x.category}</option>
             ))}
           </select>
         </div>
 
-        {/* {data && data.map((x, i) => {
+          {/* {data && data.map((x, i) => {
             <h1>{x.name}{i}</h1>
           })} */}
 
-        {/* {user && user[0].name} */}
+          {/* {data && data.data[0].name} */}
 
-        {/* {users.map((x) => {
-            return (
-              <div><h1>{x.name}</h1> </div>
-            )
-          })} */}
-
-        {productList &&
-          productList
+{productList && productList
             .filter((val) => {
               if (category == "all") {
                 return val;
@@ -149,67 +151,19 @@ function Product() {
               }
             })
             .map((x, i) => (
-              <div key={i} className="col-3" style={{ padding: "10px" }}>
-                <div
-                  style={{
-                    maxWidth: "222px",
-                    height: "222px",
-                    borderRadius: "8px",
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    backgroundColor: "white",
-                  }}
-                >
-                  <img
-                    style={{
-                      maxWidth: "200px",
-                      height: "200px",
-                      borderRadius: "8px",
-                      objectFit: "contain",
-                      display: "block",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      zIndex: "2",
-                      position: "absolute",
-											// left: "38px",
-											left: "14%",
-											bottom: "78px"
-                    }}
-                    src={x.img}
-                  />
-                  <img
-                    style={{
-                      maxWidth: "222px",
-                      height: "222px",
-                      borderRadius: "8px",
-                      objectFit: "contain",
-                      display: "block",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      zIndex: "1",
-                      position: "absolute",
-                    }}
-                    src="/images/white.png"
-                  />
+              <div key={i} className="col-3" style={{padding:"10px"}}>
+                <div style={{maxWidth:"222px", height:"222px", borderRadius:"8px", display:"block", marginLeft:"auto", marginRight:"auto", backgroundColor:"white"}}>
+                	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"2", position:"absolute"}} src={x.img} />
+                	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"1", position:"absolute"}} src="/images/white.png" />
                 </div>
-                <div className="col-12" /* style={{position: "relative"}} */>
-                  <h6>{x.name}</h6>
-                </div>
-                <div className="col-12" /* style={{position: "relative"}} */>
-                  <button
-                    onClick={() => addproduct(x.name, x.category, x.img)}
-                    style={{ marginLeft: "10px" }}
-                    className="col-6"
-                  >
-                    I have
-                  </button>
-                </div>
+                  <div className="col-12" /* style={{position: "relative"}} */><h6>{x.name}</h6></div>
+                  <div className="col-12" /* style={{position: "relative"}} */><button onClick={() => addproduct(x.name, x.category, x.img)} style={{marginLeft:"10px"}} className="col-6">I have</button></div>
               </div>
             ))}
+
       </div>
-      <input type="textbox" onChange={(e) => setProduct(e.target.value)} />
-      <button onClick={addproduct}>Add</button>
+			<input type="textbox" onChange={(e) => setProduct(e.target.value)} />
+          <button onClick={addproduct}>Add</button>
     </div>
   );
 }
