@@ -6,7 +6,7 @@ function Product() {
 
   useEffect(() => {
     const user = async () => {
-      const { data } = await axios.get("http://localhost:4000/search");
+      const { data } = await axios.get(process.env.REACT_APP_HOST + "/search");
       setUser(data);
     };
     user();

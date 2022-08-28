@@ -12,7 +12,7 @@ function Product() {
 const getUser = async () => {
   try {
     await fetch(
-      "http://localhost:4000/search",
+      process.env.REACT_APP_HOST + "/search",
       {
         method: "GET",
         mode: "cors",
