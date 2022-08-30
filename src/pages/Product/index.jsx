@@ -6,13 +6,14 @@ function Product() {
 
   useEffect(() => {
     const user = async () => {
-      const { data } = await axios.get(process.env.REACT_APP_HOST + "/search");
+      const { data } = await axios.get(process.env.REACT_APP_HOST_SEARCH);
       setUser(data);
     };
     user();
   }, []);
 
   console.log("veri", users ? users : "");
+
 
   return (
     <div className="container" style={{ backgroundColor: "#DADADA" }}>
@@ -36,6 +37,7 @@ function Product() {
                           zIndex: "2",
                         }}
                         src={x.image}
+                        alt={i}
                       />
                     </div>
                   </th>
