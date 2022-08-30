@@ -42,9 +42,6 @@ function Login() {
     getUser();
   }, []);
 
-  const googleAuth = () => {
-    window.open(process.env.REACT_APP_HOST + `/auth/google`, "_self");
-  };
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Log in Form</h1>
