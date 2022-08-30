@@ -19,7 +19,7 @@ function Product() {
       <div className="row">
         <table>
           {users &&
-            users.map((x, i) => (
+            users.map((x, i) => {
               <>
                 <tr>
                   <th>
@@ -45,7 +45,7 @@ function Product() {
                   <th>{x.TDP}</th>
                 </tr>
               </>
-            ))}
+})}
         </table>
       </div>
     </div>
