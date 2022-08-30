@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 function Login() {
+
   async function handleCallbackResponse(response) {
     console.log("data", response.credential);
     var userObject = jwt_decode(response.credential);
@@ -35,7 +36,7 @@ function Login() {
         console.log("hata", err);
       }
 
-			window.location.reload()
+			// window.location.reload()
   }
 
   // const getUser = async () => {
