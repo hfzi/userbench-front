@@ -11,13 +11,29 @@ function Login() {
     var userObject = jwt_decode(response.credential);
     console.log("acık", userObject);
 
-    await axios.get(
-      process.env.REACT_APP_HOST + `/auth/register?userdata=${response.credential}`,
-        { withCredentials: true },
-      )
-      .then((data) => {
-        localStorage.setItem("token", data.data.token);
-      });
+    // await axios.get(
+    //   process.env.REACT_APP_HOST + `/auth/register?userdata=${response.credential}`,
+    //     { withCredentials: true },
+    //   )
+    //   .then((data) => {
+    //     localStorage.setItem("token", data.data.token);
+    //   });
+
+      try {
+        await fetch(process.env.REACT_APP_HOST + `/auth/register?userdata=${response.credential}`, {
+          method: "GET",
+          mode: "cors",
+          xhrFields: { withCredentials: true },
+          credentials: "include",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("user", data.token);
+          });
+      } catch (err) {
+        console.log("hata", err);
+      }
+
 			window.location.reload()
   }
 
