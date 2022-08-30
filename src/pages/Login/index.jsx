@@ -21,26 +21,26 @@ function Login() {
 			window.location.reload()
   }
 
-  const getUser = async () => {
-    try {
-      await fetch(process.env.REACT_APP_HOST + "/auth/login/confirm", {
-        method: "POST",
-        mode: "cors",
-        xhrFields: { withCredentials: true },
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem("user", data.token);
-        });
-    } catch (err) {
-      console.log("hata", err);
-    }
-  };
+  // const getUser = async () => {
+  //   try {
+  //     await fetch(process.env.REACT_APP_HOST + "/auth/login/confirm", {
+  //       method: "POST",
+  //       mode: "cors",
+  //       xhrFields: { withCredentials: true },
+  //       credentials: "include",
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         localStorage.setItem("user", data.token);
+  //       });
+  //   } catch (err) {
+  //     console.log("hata", err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getUser();
-  }, []);
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
 
   return (
     <div className={styles.container}>
