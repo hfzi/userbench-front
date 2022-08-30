@@ -28,6 +28,7 @@ function Login() {
         })
           .then((res) => res.json())
           .then((data) => {
+            console.log("gelen veri", data);
             localStorage.setItem("user", data.token);
           });
       } catch (err) {
