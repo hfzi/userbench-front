@@ -18,7 +18,7 @@ function Login() {
       .then((data) => {
         localStorage.setItem("token", data.data.token);
       });
-			window.location.reload()
+			// window.location.reload()
   }
 
   // const getUser = async () => {
