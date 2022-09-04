@@ -30,7 +30,7 @@ export default function Profile() {
     );
 
     console.log("eklendi2", prod, cate);
-    window.location.reload();
+    //window.location.reload();
   };
 
   return (

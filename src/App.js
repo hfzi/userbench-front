@@ -6,6 +6,7 @@ import Product from "./pages/Product";
 import AddProduct from "./pages/Product/Add";
 import Profile from "./pages/Profile";
 import Navbar from "./pages/Navbar";
+import axios from "axios";
 //import "./App.css";
 
 function App() {
@@ -15,23 +16,29 @@ function App() {
   useEffect(() => {
       // Get User Data //
   const getUser = async () => {
-    try {
-      await fetch(
+    // try {
+    //   await fetch(
+    //     process.env.REACT_APP_HOST + `/auth/login/confirm?token=${localStorage.getItem("token")}`,
+    //     {
+    //       method: "GET",
+    //       mode: "cors",
+    //       xhrFields: { withCredentials: true },
+    //       credentials: "include",
+    //     },
+    //   )
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       setUser({data});
+    //     });
+    // } catch (err) {
+    //   console.log("hata", err);
+    // }
+
+      const {login} = await axios.get(
         process.env.REACT_APP_HOST + `/auth/login/confirm?token=${localStorage.getItem("token")}`,
-        {
-          method: "GET",
-          mode: "cors",
-          xhrFields: { withCredentials: true },
-          credentials: "include",
-        },
+        { withCredentials: true }
       )
-        .then((res) => res.json())
-        .then((data) => {
-          setUser({data});
-        });
-    } catch (err) {
-      console.log("hata", err);
-    }
+      setUser(login)
   };
 
     getUser();
