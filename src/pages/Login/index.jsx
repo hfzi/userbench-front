@@ -21,30 +21,27 @@ function Login() {
 			window.location.reload()
   }
 
-  const getUser = async () => {
-    try {
-      await fetch(process.env.REACT_APP_HOST + "/auth/login/confirm", {
-        method: "POST",
-        mode: "cors",
-        xhrFields: { withCredentials: true },
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem("user", data.token);
-        });
-    } catch (err) {
-      console.log("hata", err);
-    }
-  };
+  // const getUser = async () => {
+  //   try {
+  //     await fetch(process.env.REACT_APP_HOST + "/auth/login/confirm", {
+  //       method: "POST",
+  //       mode: "cors",
+  //       xhrFields: { withCredentials: true },
+  //       credentials: "include",
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         localStorage.setItem("user", data.token);
+  //       });
+  //   } catch (err) {
+  //     console.log("hata", err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getUser();
-  }, []);
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
 
-  const googleAuth = () => {
-    window.open(process.env.REACT_APP_HOST + `/auth/google`, "_self");
-  };
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Log in Form</h1>
@@ -58,10 +55,7 @@ function Login() {
           <input type="text" className={styles.input} placeholder="Password" />
           <button className={styles.btn}>Log In</button>
           <p className={styles.text}>or</p>
-          <button className={styles.google_btn} onClick={googleAuth}>
-            <img src="./images/google.png" alt="google icon" />
-            <span>Sing in with Google</span>
-          </button>
+
           <GoogleOAuthProvider clientId="199842155706-5jq4su19pe3fb7oa4jahog0ib891a07t.apps.googleusercontent.com">
             <GoogleLogin
               onSuccess={handleCallbackResponse}
