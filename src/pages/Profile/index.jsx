@@ -10,7 +10,7 @@ export default function Profile() {
   useEffect(() => {
     const getUser = async () => {
       const { data } = await axios.get(
-        `https://userbench-back.vercel.app/search?user=${username}&token=${localStorage.getItem(
+        process.env.REACT_APP_HOST + `/search?user=${username}&token=${localStorage.getItem(
           "token"
         )}`,
         { withCredentials: true }
@@ -23,7 +23,7 @@ export default function Profile() {
 
   const removeProduct = async (prod, cate, image) => {
     await axios.get(
-      `https://userbench-back.vercel.app/delete?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem(
+      process.env.REACT_APP_HOST + `/delete?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem(
         "token"
       )}`,
       { withCredentials: true }

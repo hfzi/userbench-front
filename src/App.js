@@ -17,7 +17,7 @@ function App() {
   const getUser = async () => {
     try {
       await fetch(
-        `https://userbench-back.vercel.app/auth/login/confirm?token=${localStorage.getItem("token")}`,
+        process.env.REACT_APP_HOST + `/auth/login/confirm?token=${localStorage.getItem("token")}`,
         {
           method: "GET",
           mode: "cors",

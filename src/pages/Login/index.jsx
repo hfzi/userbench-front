@@ -13,7 +13,7 @@ function Login() {
 
     await axios
       .get(
-        `https://userbench-back.vercel.app/auth/register?userdata=${response.credential}`,
+        process.env.REACT_APP_HOST + `/auth/register?userdata=${response.credential}`,
         { withCredentials: true }
       )
       .then((data) => {
@@ -24,7 +24,7 @@ function Login() {
 
   const getUser = async () => {
     try {
-      await fetch("https://userbench-back.vercel.app/auth/login/confirm", {
+      await fetch(process.env.REACT_APP_HOST + "/auth/login/confirm", {
         method: "POST",
         mode: "cors",
         xhrFields: { withCredentials: true },
@@ -44,7 +44,7 @@ function Login() {
   }, []);
 
   const googleAuth = () => {
-    window.open(`https://userbench-back.vercel.app/auth/google`, "_self");
+    window.open(process.env.REACT_APP_HOST + `/auth/google`, "_self");
   };
   return (
     <div className={styles.container}>
