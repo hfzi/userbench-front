@@ -63,13 +63,14 @@ function Login() {
             <img src="./images/google.png" alt="google icon" />
             <span>Sing in with Google</span>
           </button>
+          <GoogleOAuthProvider clientId="199842155706-5jq4su19pe3fb7oa4jahog0ib891a07t.apps.googleusercontent.com">
             <GoogleLogin
-              clientId="199842155706-5jq4su19pe3fb7oa4jahog0ib891a07t.apps.googleusercontent.com"
               onSuccess={handleCallbackResponse}
               onError={() => {
                 console.log("Login Failed");
               }}
             />
+          </GoogleOAuthProvider>
           <p className={styles.text}>
             New Here ? <Link to="/signup">Sing Up</Link>
           </p>
