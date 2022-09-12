@@ -10,14 +10,14 @@ import Navbar from "./pages/Navbar";
 
 function App() {
   const [user, setUser] = useState(null);
-  const token = localStorage.getItem("token") ? localStorage.getItem("token") : null
+  const token = document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1] ? document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1] : null
   
   useEffect(() => {
       // Get User Data //
   const getUser = async () => {
     try {
       await fetch(
-        process.env.REACT_APP_HOST + `/auth/login/confirm?token=${localStorage.getItem("token")}`,
+        process.env.REACT_APP_HOST + `/auth/login/confirm?token=${document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1]}`,
         {
           method: "GET",
           mode: "cors",

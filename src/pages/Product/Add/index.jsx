@@ -78,7 +78,7 @@ function Product(userDetails) {
   const addproduct = async (prod, cate, image) => {
     
     await axios.get(
-      process.env.REACT_APP_HOST + `/add?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem("token")}`,
+      process.env.REACT_APP_HOST + `/add?product=${prod}&category=${cate}&img=${image}&token=${document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1]}`,
       { withCredentials: true },
     );
     // var datasend = axios.post(process.env.REACT_APP_HOST + `/add`,{product})
@@ -119,7 +119,7 @@ function Product(userDetails) {
                 	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"1", position:"absolute"}} src="/images/white.png" />
                 </div>
                   <div className="col-12" /* style={{position: "relative"}} */><h6>{x.name}</h6></div>
-                  {localStorage.getItem("token") ? 
+                  {document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1] ? 
                   <div className="col-12" /* style={{position: "relative"}} */><button onClick={() => addproduct(x.name, x.category, x.img)} style={{marginLeft:"10px"}} className="col-6">I have</button></div>
                   : ""}
               </div>

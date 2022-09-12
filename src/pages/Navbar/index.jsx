@@ -17,7 +17,9 @@ const Navbar = (userDetails) => {
         { withCredentials: true }
       )
       .then((data) => {
-        localStorage.setItem("token", data.data.token);
+        console.log(data)
+        document.cookie = `token=${data.data.token}`
+        // localStorage.setItem("token", data.data.token);
       });
     window.location.reload();
   }
