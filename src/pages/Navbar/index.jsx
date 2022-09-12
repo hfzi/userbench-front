@@ -1,13 +1,47 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 const Navbar = (userDetails) => {
+
+  async function handleCallbackResponse(response) {
+    console.log("data", response.credential);
+    var userObject = jwt_decode(response.credential);
+    console.log("acık", userObject);
+
+    await axios
+      .get(
+        process.env.REACT_APP_HOST + `/auth/register?userdata=${response.credential}`,
+        { withCredentials: true }
+      )
+      .then((data) => {
+        localStorage.setItem("token", data.data.token);
+      });
+    window.location.reload();
+  }
 
   const onProfile = () => {
     return (
       <>
-        <img alt={userDetails.user.data.name} src={userDetails.user.data.photo && userDetails.user.data.photo} style={{borderRadius:"10px", width:"38px", height:"38px", backgroundColor:"white", margin:"10px" }} />
-        <Link className="nav-link" to={`/profile/${userDetails.user.data.name}`}><h6>{userDetails.user.data.name}</h6></Link>
+        <img
+          alt={userDetails.user.data.name}
+          src={userDetails.user.data.photo && userDetails.user.data.photo}
+          style={{
+            borderRadius: "10px",
+            width: "38px",
+            height: "38px",
+            backgroundColor: "white",
+            margin: "10px",
+          }}
+        />
+        <Link
+          className="nav-link"
+          to={`/profile/${userDetails.user.data.name}`}
+        >
+          <h6>{userDetails.user.data.name}</h6>
+        </Link>
       </>
     );
   };
@@ -15,11 +49,19 @@ const Navbar = (userDetails) => {
   const offProfile = () => {
     return (
       <>
-        <Link to="/signup">
+        {/* <Link to="/signup">
           <button className="btn btn btn-primary my-2 my-sm-0" type="submit">
             Login
           </button>
-        </Link>
+        </Link> */}
+        <GoogleOAuthProvider clientId="199842155706-5jq4su19pe3fb7oa4jahog0ib891a07t.apps.googleusercontent.com">
+          <GoogleLogin
+            onSuccess={handleCallbackResponse}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
+        </GoogleOAuthProvider>
       </>
     );
   };

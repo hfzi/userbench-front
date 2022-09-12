@@ -45,7 +45,7 @@ function App() {
         <Route
           exact
           path="/"
-          element={<Product user={user}/>}
+          element={token ? <Product user={user} /> : <Login />}
         />
         <Route
           exact
@@ -64,7 +64,7 @@ function App() {
         <Route
           exact
           path="/product/add"
-          element={<AddProduct user={user}/>}
+          element={token && user ? <AddProduct user={user} /> : <Login />}
         />
       </Routes>
     </div>

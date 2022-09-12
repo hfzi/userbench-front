@@ -74,20 +74,12 @@ function Product(userDetails) {
   ];
 
   const user = userDetails.user;
-  /* 	const logout = () => {
-		window.open(process.env.REACT_APP_HOST + `/auth/logout`, "_self");
-	}; */
 
   const addproduct = async (prod, cate, image) => {
     
     await axios.get(
       process.env.REACT_APP_HOST + `/add?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem("token")}`,
       { withCredentials: true },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("user")}`,
-        },
-      }
     );
     // var datasend = axios.post(process.env.REACT_APP_HOST + `/add`,{product})
     console.log("eklendi", prod, cate);
@@ -127,7 +119,9 @@ function Product(userDetails) {
                 	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"1", position:"absolute"}} src="/images/white.png" />
                 </div>
                   <div className="col-12" /* style={{position: "relative"}} */><h6>{x.name}</h6></div>
+                  {localStorage.getItem("token") ? 
                   <div className="col-12" /* style={{position: "relative"}} */><button onClick={() => addproduct(x.name, x.category, x.img)} style={{marginLeft:"10px"}} className="col-6">I have</button></div>
+                  : ""}
               </div>
             ))}
 
