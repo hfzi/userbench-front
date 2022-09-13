@@ -1,35 +1,43 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 const Navbar = (userDetails) => {
-
-  async function handleCallbackResponse(response) {
-    console.log("data", response.credential);
-    var userObject = jwt_decode(response.credential);
-    console.log("acık", userObject);
-
+  async function handleCallbackResponse(res) {
     await axios
       .get(
-        process.env.REACT_APP_HOST + `/auth/register?userdata=${response.credential}`,
+        process.env.REACT_APP_HOST +
+          `/auth/register?userdata=${res.credential}`,
         { withCredentials: true }
       )
       .then((data) => {
-        console.log(data)
-        document.cookie = `token=${data.data.token}`
-        // localStorage.setItem("token", data.data.token);
+        console.log(data);
+        document.cookie = `token=${data.data.token}`;
       });
     window.location.reload();
   }
 
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "199842155706-5jq4su19pe3fb7oa4jahog0ib891a07t.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, []);
+
   const onProfile = () => {
+    const userData = userDetails.user.data;
     return (
       <>
         <img
-          alt={userDetails.user.data.name}
-          src={userDetails.user.data.photo && userDetails.user.data.photo}
+          alt={userData.name}
+          src={userData.photo && userData.photo}
           style={{
             borderRadius: "10px",
             width: "38px",
@@ -38,34 +46,48 @@ const Navbar = (userDetails) => {
             margin: "10px",
           }}
         />
-        <Link
-          className="nav-link"
-          to={`/profile/${userDetails.user.data.name}`}
-        >
-          <h6>{userDetails.user.data.name}</h6>
+        <Link className="nav-link" to={`/profile/${userData.name}`}>
+          <h6>{userData.name}</h6>
         </Link>
       </>
     );
   };
 
-  const offProfile = () => {
-    return (
+  const offProfile = () => (
+    <>
+      <div id="signInDiv"></div>
+    </>
+  );
+
+  const Profile = () => {
+    const Data = (
       <>
-        {/* <Link to="/signup">
-          <button className="btn btn btn-primary my-2 my-sm-0" type="submit">
-            Login
-          </button>
-        </Link> */}
-        <GoogleOAuthProvider clientId="199842155706-5jq4su19pe3fb7oa4jahog0ib891a07t.apps.googleusercontent.com">
-          <GoogleLogin
-            onSuccess={handleCallbackResponse}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
-        </GoogleOAuthProvider>
+        <div id="signInDiv"></div>
       </>
     );
+    // const userData = userDetails.user.data;
+    // if (!userDetails.user) {
+    //   Data = (
+    //     <>
+    //       <img
+    //         alt={userData.name}
+    //         src={userData.photo && userData.photo}
+    //         style={{
+    //           borderRadius: "10px",
+    //           width: "38px",
+    //           height: "38px",
+    //           backgroundColor: "white",
+    //           margin: "10px",
+    //         }}
+    //       />
+    //       <Link className="nav-link" to={`/profile/${userData.name}`}>
+    //         <h6>{userData.name}</h6>
+    //       </Link>
+    //     </>
+    //   );
+    // }
+
+    return Data;
   };
 
   return (
