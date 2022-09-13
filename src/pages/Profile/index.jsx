@@ -4,15 +4,13 @@ import { useParams } from "react-router-dom";
 
 export default function Profile() {
   let { username } = useParams();
-
+  const token = document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1]
   const [otheruser, setOtherUser] = useState([]);
 
   useEffect(() => {
     const getUser = async () => {
       const { data } = await axios.get(
-        process.env.REACT_APP_HOST + `/search?user=${username}&token=${localStorage.getItem(
-          "token"
-        )}`,
+        process.env.REACT_APP_HOST + `/usersearch?user=${username}&token=${token}`,
         { withCredentials: true }
       );
       setOtherUser(data[0]);
@@ -21,11 +19,11 @@ export default function Profile() {
     getUser();
   }, [username]);
 
+  console.log(otheruser)
+
   const removeProduct = async (prod, cate, image) => {
     await axios.get(
-      process.env.REACT_APP_HOST + `/delete?product=${prod}&category=${cate}&img=${image}&token=${localStorage.getItem(
-        "token"
-      )}`,
+      process.env.REACT_APP_HOST + `/delete?product=${prod}&category=${cate}&img=${image}&token=${token}`,
       { withCredentials: true }
     );
 
@@ -44,7 +42,8 @@ export default function Profile() {
         </div>
 
         {otheruser.product &&
-          otheruser.product.map((x, i) => (
+          otheruser.product.map((x, i) => {
+          return (
             <div key={i} className="col-3 p-4" style={{ padding: "10px" }}>
               <div
                 style={{
@@ -99,7 +98,7 @@ export default function Profile() {
                 </button>
               </div>
             </div>
-          ))}
+          )})}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import axios from "axios";
 function Product(userDetails) {
   const [product, setProduct] = useState("");
   const [category, setCategory] = useState("");
-
+  const token = document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1]
   const categoryList = [
     { category: "Laptop" },
     { category: "Headphone" },
@@ -76,12 +76,10 @@ function Product(userDetails) {
   const user = userDetails.user;
 
   const addproduct = async (prod, cate, image) => {
-    
     await axios.get(
-      process.env.REACT_APP_HOST + `/add?product=${prod}&category=${cate}&img=${image}&token=${document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1]}`,
+      process.env.REACT_APP_HOST + `/add?product=${prod}&category=${cate}&img=${image}&token=${token}`,
       { withCredentials: true },
     );
-    // var datasend = axios.post(process.env.REACT_APP_HOST + `/add`,{product})
     console.log("eklendi", prod, cate);
   };
 
@@ -118,9 +116,9 @@ function Product(userDetails) {
                 	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"2", position:"absolute"}} src={x.img} />
                 	<img style={{maxWidth:"222px", height:"222px", borderRadius:"8px", objectFit:"contain", display:"block", marginLeft:"auto", marginRight:"auto", zIndex:"1", position:"absolute"}} src="/images/white.png" />
                 </div>
-                  <div className="col-12" /* style={{position: "relative"}} */><h6>{x.name}</h6></div>
-                  {document.cookie.split('; ').find((row) => row.startsWith('token='))?.split('=')[1] ? 
-                  <div className="col-12" /* style={{position: "relative"}} */><button onClick={() => addproduct(x.name, x.category, x.img)} style={{marginLeft:"10px"}} className="col-6">I have</button></div>
+                  <div className="col-12"><h6>{x.name}</h6></div>
+                  {token ? 
+                  <div className="col-12"><button onClick={() => addproduct(x.name, x.category, x.img)} style={{marginLeft:"10px"}} className="col-6">I have</button></div>
                   : ""}
               </div>
             ))}

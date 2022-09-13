@@ -59,37 +59,6 @@ const Navbar = (userDetails) => {
     </>
   );
 
-  const Profile = () => {
-    const Data = (
-      <>
-        <div id="signInDiv"></div>
-      </>
-    );
-    // const userData = userDetails.user.data;
-    // if (!userDetails.user) {
-    //   Data = (
-    //     <>
-    //       <img
-    //         alt={userData.name}
-    //         src={userData.photo && userData.photo}
-    //         style={{
-    //           borderRadius: "10px",
-    //           width: "38px",
-    //           height: "38px",
-    //           backgroundColor: "white",
-    //           margin: "10px",
-    //         }}
-    //       />
-    //       <Link className="nav-link" to={`/profile/${userData.name}`}>
-    //         <h6>{userData.name}</h6>
-    //       </Link>
-    //     </>
-    //   );
-    // }
-
-    return Data;
-  };
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-inverse navbar-fixed-top">
       <Link className="navbar-brand" to="/">
@@ -106,7 +75,6 @@ const Navbar = (userDetails) => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
